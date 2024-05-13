@@ -18,3 +18,20 @@ const today = new Date();
 dateElement.innerHTML = today.toLocaleDateString("en-us", options);
 
 // Add a to do function
+
+function addToDo(toDo){
+
+    const item = `
+            <li class="item">
+                <i class="fa fa-circle-thin co" job="complete" id="0"></i>
+                <p class="text">${toDo}</p>
+                <i class="fa fa-trash-o de" job="delete" id="0"></i>
+            </li>
+            `;
+
+    const position = "beforeend";
+
+    list.insertAdjacentHTML(position, item);
+}
+
+addToDo("drink Cofee")
