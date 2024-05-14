@@ -1,71 +1,50 @@
 // CODE EXPLAINED channel
 
-// Select the Elements
+//Select the Elements
 const clear = document.querySelector(".clear");
-const dateElement = document.getElementById("date");
+const dataElement = document.getElementById("date");
 const list = document.getElementById("list");
 const input = document.getElementById("input");
 
-// Classes Names
+// Class names
 const CHECK = "fa-check-circle";
 const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "lineThrough";
 
-// Variables
-let LIST = []
-    , id = 0;
-
-
-// Show Todays Date
+// Show todays date
 const options = {weekday : "long", month:"short", day:"numeric"};
 const today = new Date();
 
-dateElement.innerHTML = today.toLocaleDateString("en-us", options);
+dataElement.innerHTML = today.toLocaleDateString("en-US", options);
 
-// Add a to do function
+//add to do function
 
-
-function addToDo(toDo, id, done, trash){
-
+function addtoDo(toDo, id, done, trash) {
     if(trash){ return; }
 
     const DONE = done ? CHECK : UNCHECK;
     const LINE = done ? LINE_THROUGH : "";
 
-
-    const item = `
-            <li class="item">
-                <i class="fa fa-circle-thin co" job="complete" id="${id}"></i>
-                <p class="text">${toDo}</p>
+    const item = ` <li class ="item">
+                <i class="fa fa ${DONE} co" job="complete" id="${id}"></i>
+                <p class="text ${LINE}">${toDo}</p>
                 <i class="fa fa-trash-o de" job="delete" id="${id}"></i>
-            </li>
-            `;
-
+                </li>
+    `
     const position = "beforeend";
-
     list.insertAdjacentHTML(position, item);
+
 }
 
-// add an item to the list user the enter key
-document.addEventListener("keyup", function(even){
+//add an item to the list user the enter key
+
+document.addEventListener("keyup",function(even){
     if(event.keyCode == 13){
-        const toDo = input.ariaValueMax;
-
-        //if the input isnt empty
+        const toDo = input.value;
+        //if the input isn't empty
         if(toDo){
-            addToDo(toDo, id, false, false);
-
-            LIST.push({
-                name : toDo,
-                id : id,
-                done : false,
-                trash : false
-            });
-
-            id++;
+            addtoDo(toDo);
         }
         input.value = "";
     }
-});
-
-
+})
