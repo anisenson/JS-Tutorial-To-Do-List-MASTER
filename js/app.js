@@ -14,6 +14,34 @@ const LINE_THROUGH = "lineThrough";
 // variables
 let LIST, id;
 
+//get item from local stroage
+let data = localStorage.getItem("TODO");
+
+//check if data is not empty
+if(data){
+    LIST = JSON.parse(data);
+    id = LIST.length;
+    loadList(LIST);
+}else {
+    LIST = []
+    id = 0
+}
+
+//load items to users interface 
+function loadList(array){
+    array.forEach(function(item){
+        array.forEach(function(item){
+            addtoDo(item.name, item.id, item.done, item.trash)
+        })
+    })
+}
+
+
+//clear local storage 
+clear,addEventListener("click", function(){
+    localStorage.clear();
+    location.reload
+})
 
 // Show todays date
 const options = {weekday : "long", month:"short", day:"numeric"};
@@ -45,7 +73,17 @@ document.addEventListener("keyup",function(even){
         const toDo = input.value;
         //if the input isn't empty
         if(toDo){
-            addtoDo(toDo);
+            addtoDo(toDo, id, false, false);
+
+            LIST.push({
+                name : toDo,
+                id : id,
+                done : false,
+                trash : false
+            })
+
+            // add item to local storge
+            localStorage.setItem("TODO", JSON.stringify(LIST));
         }
         input.value = "";
     }
@@ -67,7 +105,7 @@ function removeToDo(element){
     LIST[element.id].trash = true;
 }
 
-// target the items created dynamiccaly 
+// target the items created dynamically 
 
 list.addEventListener("click", function(event){
     const element = event.target; // return the clicked element inside list
@@ -78,4 +116,7 @@ list.addEventListener("click", function(event){
     }else if (elementJob == "delete"){
         removeToDo(element);
     }
+    // add item to local storge
+    localStorage.setItem("TODO", JSON.stringify(LIST));
+
 });
