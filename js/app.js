@@ -18,7 +18,6 @@ const today = new Date();
 dataElement.innerHTML = today.toLocaleDateString("en-US", options);
 
 //add to do function
-
 function addtoDo(toDo, id, done, trash) {
     if(trash){ return; }
 
@@ -37,7 +36,6 @@ function addtoDo(toDo, id, done, trash) {
 }
 
 //add an item to the list user the enter key
-
 document.addEventListener("keyup",function(even){
     if(event.keyCode == 13){
         const toDo = input.value;
@@ -48,3 +46,12 @@ document.addEventListener("keyup",function(even){
         input.value = "";
     }
 })
+
+// complete to do 
+function completeToDo(element){
+    element.classList.toggle(CHECK);
+    element.classList.toggle(UNCHECK);
+    element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+
+    LIST[element.id].done = LIST[element.id].done ? false : true;
+}
